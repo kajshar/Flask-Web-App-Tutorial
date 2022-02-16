@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_REPO = "kajolsharma/pythonflaskapp"
+        DOCKER_HUB_REPO = "kajolsharma/flaskwebapp"
         //CONTAINER_NAME = "pythonflaskapp"
         
     }
@@ -15,8 +15,8 @@ pipeline {
                 sh 'docker image tag $DOCKER_HUB_REPO:latest $DOCKER_HUB_REPO:$BUILD_NUMBER'
 
                 //  Pushing Image to Repository
-                sh 'docker push kajolsharma/pythonflaskapp:$BUILD_NUMBER'
-                sh 'docker push kajolsharma/pythonflaskapp:latest'
+                sh 'docker push kajolsharma/flaskwebapp:$BUILD_NUMBER'
+                sh 'docker push kajolsharma/flaskwebapp:latest'
                 
                 echo "Image built and pushed to repository"
                 }
@@ -27,12 +27,12 @@ pipeline {
                  script{
                     //sh 'BUILD_NUMBER = ${BUILD_NUMBER}'
                     if (BUILD_NUMBER == "1") {
-                        sh 'docker run --name flask-app -d -p 5000:5000 $DOCKER_HUB_REPO'
+                        sh 'docker run --name flask-webapp -d -p 5000:5000 $DOCKER_HUB_REPO'
                     }
                     else {
                         sh 'docker stop flask-app'
                         sh 'docker rm flask-app'
-                        sh 'docker run --name flask-app -d -p 5000:5000 $DOCKER_HUB_REPO'
+                        sh 'docker run --name flask-webapp -d -p 5000:5000 $DOCKER_HUB_REPO'
                     }
                     //sh 'echo "Latest image/code deployed"'
                 }
