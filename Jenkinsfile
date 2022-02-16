@@ -30,8 +30,8 @@ pipeline {
                         sh 'docker run --name flask-webapp -d -p 5000:5000 $DOCKER_HUB_REPO'
                     }
                     else {
-                        sh 'docker stop flask-app'
-                        sh 'docker rm flask-app'
+                        sh 'docker stop flask-webapp'
+                        sh 'docker rm flask-webapp'
                         sh 'docker run --name flask-webapp -d -p 5000:5000 $DOCKER_HUB_REPO'
                     }
                     //sh 'echo "Latest image/code deployed"'
