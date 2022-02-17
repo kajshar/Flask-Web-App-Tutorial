@@ -6,8 +6,7 @@ pipeline {
         
     }
     stages {
-        
-        stage('Build Image') {
+      stage('Build Image') {
             steps {
                 withDockerRegistry([ credentialsId: "dockerhub_id", url: "https://index.docker.io/v1/" ]) {             
                 //  Building new image
@@ -38,12 +37,12 @@ pipeline {
                 }
             }
         }
-        post {
-    success {
+    }
+    post {
+      success {
         slackSend channel: '#ops-room',
                   color: 'good',
                   message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
             }
         }
     }
-}
